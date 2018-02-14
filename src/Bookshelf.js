@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ListedBook from './ListedBook'
+import Book from './Book'
 
 class Bookshelf extends Component {
   render() {
@@ -22,9 +22,16 @@ class Bookshelf extends Component {
 
   renderBooks() {
     return this.props.books.map(book => {
-      return <ListedBook key={book.id} 
-                         book={book}
-                         changeBookshelf={this.props.changeBookshelf} />;
+      const authors = book.authors || ['Unknown']
+      const image = book.imageLinks.thumbnail || ''
+
+      return <Book key={book.id}
+                   id={book.id}
+                   bookshelf={book.shelf}
+                   title={book.title}
+                   authors={authors.join(' ')}
+                   image={image}
+                   changeBookshelf={this.props.changeBookshelf} />
     }, this);
   }
 

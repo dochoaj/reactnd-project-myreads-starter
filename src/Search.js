@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { DebounceInput } from 'react-debounce-input'
 import PropTypes from 'prop-types'
 import Loading from './Loading'
-import ListedBook from './ListedBook'
+import Book from './Book'
 
 class Search extends Component {
   componentDidMount() {
@@ -20,7 +20,7 @@ class Search extends Component {
         <div className="search-books-bar">
           <Link to="/" className="close-search">Close</Link>
           <div className="search-books-input-wrapper">
-            <DebounceInput minLength={2}
+            <DebounceInput minLength={1}
                            placeholder="Search by title or author"
                            debounceTimeout={300}
                            onChange={this.onSearchTermChange} />
@@ -50,11 +50,18 @@ class Search extends Component {
 
   renderBooks() {
     return this.props.books.map(book => {
-      book.shelf = this.findShelf(book.id);
-      return <ListedBook key={book.id} 
-                         book={book}
-                         changeBookshelf={this.props.changeBookshelf} />;
-    });
+      const shelf = this.findShelf(book.id);
+      const authors = book.authors || ['Unknown']
+      const image = (book.imageLinks && book.imageLinks.thumbnail) || ''
+
+      return <Book key={book.id}
+                   id={book.id}
+                   bookshelf={shelf}
+                   title={book.title}
+                   authors={authors.join(' ')}
+                   image={image}
+                   changeBookshelf={this.props.changeBookshelf} />
+    }, this);
   }
 
   findShelf(id) {
@@ -76,10 +83,10 @@ Search.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      authors: PropTypes.arrayOf(PropTypes.string).isRequired,
+      authors: PropTypes.arrayOf(PropTypes.string),
       imageLinks: PropTypes.shape({
         thumbnail: PropTypes.string.isRequired,
-      }).isRequired,
+      }),
     })
   ).isRequired,
   cleanSearch: PropTypes.func.isRequired,

@@ -5,15 +5,17 @@ import BookshelfSelector from './BookshelfSelector'
 class Book extends Component {
 	render() {
     return (
-      <div className="book">
-        <div className="book-top">
-          <div className="book-cover" style={this.coverStyles()}></div>
-          <BookshelfSelector current={this.props.bookshelf} 
-                             changeBookshelf={this.onChangeBookshelf} />
+      <li>
+        <div className="book">
+          <div className="book-top">
+            <div className="book-cover" style={this.coverStyles()}></div>
+            <BookshelfSelector current={this.props.bookshelf} 
+                               changeBookshelf={this.onChangeBookshelf} />
+          </div>
+          <div className="book-title">{this.props.title}</div>
+          <div className="book-authors">{this.props.authors}</div>
         </div>
-        <div className="book-title">{this.props.title}</div>
-        <div className="book-authors">{this.props.authors}</div>
-      </div>
+      </li>
     );
   }
 
