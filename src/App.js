@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import {
+  BrowserRouter as Router,
+  Route,
+} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
@@ -20,14 +24,17 @@ class BooksApp extends Component {
 
   render() {
     return (
-      <div>
-        {this.scopedList()}
-        {this.scopedSearch()}
-      </div>
+      <Router>
+        <div className="app">
+          <Route exact path='/' render={this.scopedList} />
+          <Route exact path='/list' render={this.scopedList} />
+          <Route exact path='/search' render={this.scopedSearch} />
+        </div>
+      </Router>
     )
   }
 
-  scopedList = () => {
+  scopedList = (props) => {
     return (
       <List loading={this.state.loading}
             books={this.state.books}
@@ -38,7 +45,7 @@ class BooksApp extends Component {
     );
   }
 
-  scopedSearch = () => {
+  scopedSearch = (props) => {
     return (
       <Search loading={this.state.loading}
               fetch={this.fetchAll}
