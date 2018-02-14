@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Bookshelf from './Bookshelf'
 import Loading from './Loading'
@@ -19,7 +18,7 @@ class List extends Component {
         {this.props.loading ? <Loading /> : this.renderBookshelfs()}
         </div>
         <div className="open-search">
-          <Link to="search">Add a book</Link>
+          <a href="search">Add a book</a>
         </div>
       </div>
     );

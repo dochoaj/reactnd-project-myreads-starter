@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { DebounceInput } from 'react-debounce-input'
 import PropTypes from 'prop-types'
 import Loading from './Loading'
@@ -18,7 +17,7 @@ class Search extends Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <Link to="/" className="close-search">Close</Link>
+          <a href="/" className="close-search">Close</a>
           <div className="search-books-input-wrapper">
             <DebounceInput minLength={2}
                            placeholder="Search by title or author"
